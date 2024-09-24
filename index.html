@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.7/css/dataTables.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="//cdn.datatables.net/2.1.7/js/dataTables.min.js"></script>
+  </head>
+
+  <body>
+    <h1>查詢頁</h1>
+
+    <button onclick="goDetail()">詳情頁，可以存狀態嗎？</a>
+
+    <div>
+      <button onclick="searchData()">Search</button>
+    </div>
+
+    <hr />
+
+    <table id="myTable" class="display">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Name</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+    </table>
+
+    
+  </body>
+
+<script>
+
+$(document).ready( function () {
+  $('#myTable').DataTable({
+    stateSave: true,
+    data: [],
+    columns: [
+      { data: 'amount' },
+      { data: 'name' },
+      { data: 'time' },
+    ]
+  });
+} );
+
+function searchData() {
+  var table = $('#myTable').DataTable();
+
+  table.clear()
+  table.rows.add(randomGenData())
+  table.draw()
+}
+
+function randomGenData() {
+  return new Array(240).fill(null).map((_, index) => ({
+    amount: 120 + 100 * index - Math.random() * 50 ,
+    name: 'Oster 87' + index,
+    time: new Date(new Date().getTime() - 5 * 60 * 1000 * index)
+  }))
+}
+
+function goDetail() {
+
+
+  window.location.href = "./detail.html"
+}
+
+
+</script>
+</html>
